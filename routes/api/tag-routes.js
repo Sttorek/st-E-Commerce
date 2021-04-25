@@ -48,9 +48,9 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Category.update(
+  Tag.update(
     {
-      category_name: req.body.category_name,
+      tag_name: req.body.tag_name,
     },
     {
       where: {
@@ -58,14 +58,23 @@ router.put('/:id', (req, res) => {
       },
     }
   )
-    .then((updatedCategory) => {
-      res.json(updatedCategory);
+    .then((updatedTag) => {
+      res.json(updatedTag);
     })
     .catch((err) => res.json(err));
 });
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  Tag.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((deletedTag) => {
+      res.json(deletedTag);
+    })
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
